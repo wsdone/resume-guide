@@ -1,5 +1,7 @@
 # Resume Guide - 引导式简历生成器
 
+> **Claude Code Skill** - 这是一个为 [Claude Code](https://claude.ai/code) 设计的技能插件
+
 一个专业的简历生成助手，通过友好、耐心的多轮对话，逐步收集用户的个人信息和职业经历，然后生成精美的 PDF 简历。
 
 ## 特点
@@ -21,23 +23,46 @@
 | modern_zh | 现代简约 · 中文（侧边栏布局） |
 | modern_en | 现代简约 · English（侧边栏布局） |
 
-## 安装
+## 前置要求
 
-1. 复制此目录到你的 Claude Code skills 目录：
+- [Claude Code](https://claude.ai/code) - Anthropic 官方 AI 编程助手
+- Python 3.6+
+- pip3
+
+## 一键安装
 
 ```bash
-cp -r resume-guide ~/.claude/skills/
+# Clone 项目
+git clone https://github.com/wsdone/resume-guide.git
+cd resume-guide
+
+# 运行安装脚本
+chmod +x install.sh
+./install.sh
 ```
 
-2. 安装 Python 依赖：
+或者使用 curl 一键安装：
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/wsdone/resume-guide/main/install.sh | bash
+```
+
+## 手动安装
+
+```bash
+# 1. Clone 项目
+git clone https://github.com/wsdone/resume-guide.git
+
+# 2. 复制到 Claude Code skills 目录
+cp -r resume-guide ~/.claude/skills/
+
+# 3. 安装 Python 依赖
 pip3 install -r ~/.claude/skills/resume-guide/scripts/requirements.txt
 ```
 
-## 使用
+## 使用方法
 
-在 Claude Code 中输入：
+安装完成后，在 **Claude Code** 中输入：
 
 ```
 /resume-guide
@@ -49,6 +74,7 @@ pip3 install -r ~/.claude/skills/resume-guide/scripts/requirements.txt
 
 ```
 resume-guide/
+├── install.sh         # 一键安装脚本
 ├── SKILL.md           # 技能定义文件
 ├── scripts/           # PDF 生成脚本
 │   ├── generate_pdf.py
@@ -76,6 +102,10 @@ resume-guide/
 ## 许可证
 
 MIT License
+
+## 相关项目
+
+- [interview-coach](https://github.com/wsdone/interview-coach) - AI 面试教练
 
 ## 贡献
 
