@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('../styles/base.css');
+
+.header {
+  text-align: left;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #3498db;
+}
+
+.header h1 {
+  font-size: 22pt;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.header .target {
+  font-size: 12pt;
+  color: #3498db;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.header .contact-info {
+  font-size: 9.5pt;
+  color: #666;
+}
+
+.header .contact-info span {
+  margin-right: 16px;
+}
+
+.tech-stack-inline {
+  font-size: 9.5pt;
+  color: #555;
+  margin-top: 2px;
+}
+
+.tech-stack-inline code {
+  background: #eaf2f8;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-family: "SF Mono", "Menlo", monospace;
+  font-size: 9pt;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>{{ basic.name }}</h1>
+  <div class="target">{{ basic.target_position }}</div>
+  <div class="contact-info">
+    {% if basic.phone %}<span>{{ basic.phone }}</span>{% endif %}
+    {% if basic.email %}<span>{{ basic.email }}</span>{% endif %}
+    {% if basic.age %}<span>{{ basic.age }}岁</span>{% endif %}
+    {% if basic.location %}<span>{{ basic.location }}</span>{% endif %}
+  </div>
+</div>
+
+{% if basic.summary %}
+<div class="section-title">个人简介</div>
+<p class="summary-text">{{ basic.summary }}</p>
+{% endif %}
+
+{% if skills %}
+<div class="section-title">技术技能</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:10pt;line-height:1.8;">
+{% if skills.languages %}<div><strong>编程语言：</strong>{{ skills.languages | join('、') }}</div>{% endif %}
+{% if skills.frameworks %}<div><strong>框架/库：</strong>{{ skills.frameworks | join('、') }}</div>{% endif %}
+{% if skills.tools %}<div><strong>工具：</strong>{{ skills.tools | join('、') }}</div>{% endif %}
+</div>
+{% endif %}
+
+{% if work_experience %}
+<div class="section-title">工作经历</div>
+{% for job in work_experience %}
+<div class="item-block">
+  <div class="item-header">
+    <div>
+      <span class="item-title">{{ job.company }}</span>
+      <span class="item-subtitle"> · {{ job.position }}</span>
+    </div>
+    <span class="item-date">{{ job.start }} - {{ job.end }}</span>
+  </div>
+  {% if job.responsibilities %}
+  <ul class="details">
+    {% for r in job.responsibilities %}<li>{{ r }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if job.achievements %}
+  <ul class="details">
+    {% for a in job.achievements %}<li>{{ a }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if projects %}
+<div class="section-title">项目经验</div>
+{% for p in projects %}
+<div class="item-block">
+  <div class="item-header">
+    <div>
+      <span class="item-title">{{ p.name }}</span>
+      {% if p.role %}<span class="item-subtitle"> · {{ p.role }}</span>{% endif %}
+    </div>
+  </div>
+  {% if p.tech_stack %}
+  <div class="tech-stack-inline">技术栈：
+    {% for t in p.tech_stack %}<code>{{ t }}</code> {% endfor %}
+  </div>
+  {% endif %}
+  {% if p.description %}<p class="summary-text">{{ p.description }}</p>{% endif %}
+  {% if p.highlights %}
+  <ul class="details">
+    {% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if education %}
+<div class="section-title">教育背景</div>
+{% for e in education %}
+<div class="item-block">
+  <div class="item-header">
+    <div>
+      <span class="item-title">{{ e.school }}</span>
+      <span class="item-subtitle"> · {{ e.major }} · {{ e.degree }}</span>
+    </div>
+    <span class="item-date">{{ e.start }} - {{ e.end }}</span>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>

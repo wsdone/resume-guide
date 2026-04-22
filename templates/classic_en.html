@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('../styles/base.css');
+
+body { font-family: "Helvetica Neue", Arial, sans-serif; }
+
+.header {
+  text-align: center;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #bbb;
+}
+
+.header h1 {
+  font-size: 20pt;
+  color: #333;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+.header .contact-info {
+  font-size: 9.5pt;
+  color: #555;
+}
+
+.header .contact-info span {
+  margin: 0 8px;
+}
+
+.target-position {
+  text-align: center;
+  font-size: 11pt;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.classic-section {
+  margin-top: 16px;
+}
+
+.classic-section .section-title {
+  font-size: 12pt;
+  border-bottom: 1px solid #999;
+  padding-bottom: 3px;
+  color: #333;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>{{ basic.name | upper }}</h1>
+  <div class="contact-info">
+    {% if basic.phone %}<span>{{ basic.phone }}</span>|{% endif %}
+    {% if basic.email %}<span>{{ basic.email }}</span>|{% endif %}
+    {% if basic.age %}<span>Age: {{ basic.age }}</span>|{% endif %}
+    {% if basic.location %}<span>{{ basic.location }}</span>{% endif %}
+  </div>
+</div>
+
+{% if basic.target_position %}
+<div class="target-position">Objective: {{ basic.target_position }}</div>
+{% endif %}
+
+{% if basic.summary %}
+<div class="classic-section">
+  <div class="section-title">Professional Summary</div>
+  <p class="summary-text">{{ basic.summary }}</p>
+</div>
+{% endif %}
+
+{% if work_experience %}
+<div class="classic-section">
+  <div class="section-title">Work Experience</div>
+  {% for job in work_experience %}
+  <div class="item-block">
+    <div class="item-header">
+      <div>
+        <span class="item-title">{{ job.company }}</span>
+        <span class="item-subtitle"> - {{ job.position }}</span>
+      </div>
+      <span class="item-date">{{ job.start }} - {{ job.end }}</span>
+    </div>
+    {% if job.responsibilities %}
+    <ul class="details">
+      {% for r in job.responsibilities %}<li>{{ r }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if job.achievements %}
+    <ul class="details">
+      {% for a in job.achievements %}<li>{{ a }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if projects %}
+<div class="classic-section">
+  <div class="section-title">Projects</div>
+  {% for p in projects %}
+  <div class="item-block">
+    <div class="item-header">
+      <span class="item-title">{{ p.name }}</span>
+      {% if p.role %}<span class="item-subtitle"> - {{ p.role }}</span>{% endif %}
+    </div>
+    {% if p.tech_stack %}
+    <div style="font-size:9.5pt;color:#666;">Technologies: {{ p.tech_stack | join(', ') }}</div>
+    {% endif %}
+    {% if p.description %}<p class="summary-text">{{ p.description }}</p>{% endif %}
+    {% if p.highlights %}
+    <ul class="details">
+      {% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if education %}
+<div class="classic-section">
+  <div class="section-title">Education</div>
+  {% for e in education %}
+  <div class="item-block">
+    <div class="item-header">
+      <div>
+        <span class="item-title">{{ e.school }}</span>
+        <span class="item-subtitle"> - {{ e.major }} ({{ e.degree }})</span>
+      </div>
+      <span class="item-date">{{ e.start }} - {{ e.end }}</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if skills %}
+<div class="classic-section">
+  <div class="section-title">Skills</div>
+  {% if skills.languages %}<p><strong>Languages:</strong> {{ skills.languages | join(', ') }}</p>{% endif %}
+  {% if skills.frameworks %}<p><strong>Frameworks:</strong> {{ skills.frameworks | join(', ') }}</p>{% endif %}
+  {% if skills.tools %}<p><strong>Tools:</strong> {{ skills.tools | join(', ') }}</p>{% endif %}
+  {% if skills.certifications %}<p><strong>Certifications:</strong> {{ skills.certifications | join(', ') }}</p>{% endif %}
+</div>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@page { size: A4; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: #2c3e50;
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 35%;
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 28px 20px;
+}
+
+.sidebar h1 {
+  font-size: 18pt;
+  margin-bottom: 2px;
+  color: #fff;
+}
+
+.sidebar .target {
+  font-size: 10.5pt;
+  color: #3498db;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.sidebar-section {
+  margin-bottom: 18px;
+}
+
+.sidebar-section .stitle {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #3498db;
+  border-bottom: 1px solid #4a6785;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.sidebar .contact-item {
+  font-size: 9pt;
+  margin-bottom: 5px;
+  color: #bdc3c7;
+}
+
+.sidebar .skill-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 2px 3px;
+  border-radius: 3px;
+  font-size: 8.5pt;
+  background: #3d566e;
+  color: #ecf0f1;
+}
+
+.sidebar .edu-item {
+  margin-bottom: 10px;
+}
+
+.sidebar .edu-item .school {
+  font-weight: 700;
+  font-size: 10pt;
+  color: #fff;
+}
+
+.sidebar .edu-item .detail {
+  font-size: 9pt;
+  color: #bdc3c7;
+}
+
+.main {
+  width: 65%;
+  padding: 28px 24px;
+}
+
+.main .section-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.main .section-title:first-child {
+  margin-top: 0;
+}
+
+.main .item-block {
+  margin-bottom: 14px;
+}
+
+.main .item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.main .item-title {
+  font-weight: 700;
+  font-size: 10.5pt;
+}
+
+.main .item-subtitle {
+  font-size: 9.5pt;
+  color: #666;
+}
+
+.main .item-date {
+  font-size: 9pt;
+  color: #888;
+}
+
+.main ul.details {
+  padding-left: 16px;
+  margin-top: 3px;
+}
+
+.main ul.details li {
+  margin-bottom: 2px;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+
+.summary-text {
+  font-size: 9.5pt;
+  color: #555;
+  line-height: 1.65;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="sidebar">
+  <h1>{{ basic.name | upper }}</h1>
+  {% if basic.target_position %}<div class="target">{{ basic.target_position }}</div>{% endif %}
+
+  <div class="sidebar-section">
+    <div class="stitle">Contact</div>
+    {% if basic.phone %}<div class="contact-item">{{ basic.phone }}</div>{% endif %}
+    {% if basic.email %}<div class="contact-item">{{ basic.email }}</div>{% endif %}
+    {% if basic.age %}<div class="contact-item">Age: {{ basic.age }}</div>{% endif %}
+    {% if basic.location %}<div class="contact-item">{{ basic.location }}</div>{% endif %}
+  </div>
+
+  {% if skills %}
+  <div class="sidebar-section">
+    <div class="stitle">Skills</div>
+    {% if skills.languages %}<div style="margin-bottom:4px;font-size:8.5pt;color:#95a5a6;">Languages</div>{% endif %}
+    <div>{% for s in (skills.languages or []) %}<span class="skill-tag">{{ s }}</span>{% endfor %}</div>
+    {% if skills.frameworks %}<div style="margin-top:6px;font-size:8.5pt;color:#95a5a6;">Frameworks</div>{% endif %}
+    <div>{% for s in (skills.frameworks or []) %}<span class="skill-tag">{{ s }}</span>{% endfor %}</div>
+    {% if skills.tools %}<div style="margin-top:6px;font-size:8.5pt;color:#95a5a6;">Tools</div>{% endif %}
+    <div>{% for s in (skills.tools or []) %}<span class="skill-tag">{{ s }}</span>{% endfor %}</div>
+    {% if skills.certifications %}
+    <div style="margin-top:6px;font-size:8.5pt;color:#95a5a6;">Certifications</div>
+    {% for c in skills.certifications %}<div class="contact-item">{{ c }}</div>{% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if education %}
+  <div class="sidebar-section">
+    <div class="stitle">Education</div>
+    {% for e in education %}
+    <div class="edu-item">
+      <div class="school">{{ e.school }}</div>
+      <div class="detail">{{ e.major }} · {{ e.degree }}</div>
+      <div class="detail">{{ e.start }} - {{ e.end }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="main">
+  {% if basic.summary %}
+  <div class="section-title">Summary</div>
+  <p class="summary-text">{{ basic.summary }}</p>
+  {% endif %}
+
+  {% if work_experience %}
+  <div class="section-title">Work Experience</div>
+  {% for job in work_experience %}
+  <div class="item-block">
+    <div class="item-header">
+      <div>
+        <span class="item-title">{{ job.company }}</span>
+        <span class="item-subtitle"> · {{ job.position }}</span>
+      </div>
+      <span class="item-date">{{ job.start }} - {{ job.end }}</span>
+    </div>
+    {% if job.responsibilities %}
+    <ul class="details">
+      {% for r in job.responsibilities %}<li>{{ r }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if job.achievements %}
+    <ul class="details">
+      {% for a in job.achievements %}<li>{{ a }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if projects %}
+  <div class="section-title">Projects</div>
+  {% for p in projects %}
+  <div class="item-block">
+    <div class="item-header">
+      <div>
+        <span class="item-title">{{ p.name }}</span>
+        {% if p.role %}<span class="item-subtitle"> · {{ p.role }}</span>{% endif %}
+      </div>
+    </div>
+    {% if p.tech_stack %}<div style="font-size:9pt;color:#666;">{{ p.tech_stack | join(' · ') }}</div>{% endif %}
+    {% if p.description %}<p class="summary-text">{{ p.description }}</p>{% endif %}
+    {% if p.highlights %}
+    <ul class="details">
+      {% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+</div>
+</body>
+</html>
