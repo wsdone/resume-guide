@@ -33,12 +33,13 @@
 
 ## インストール
 
-### 方法1：ワンクリックインストール（推奨）
+### 方法1：プラグインインストール（推奨）
 
 Claude Code で次のコマンドを実行：
 
 ```
-/install https://github.com/wsdone/resume-guide
+/plugin marketplace add wsdone/resume-guide
+/plugin install resume-guide@resume-guide
 ```
 
 ### 方法2：インストールスクリプト

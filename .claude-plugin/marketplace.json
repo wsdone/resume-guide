@@ -1,0 +1,30 @@
+{
+  "name": "resume-guide",
+  "id": "resume-guide",
+  "owner": {
+    "name": "wsdone"
+  },
+  "metadata": {
+    "description": "Interactive resume generator: collects info through multi-turn conversation, optimizes content, and generates polished PDF resumes with multiple templates",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "resume-guide",
+      "source": "./",
+      "description": "Guided resume builder that interviews users conversationally, optimizes wording at 5 levels, and generates professional PDF resumes in Chinese or English with tech/classic/modern templates",
+      "version": "1.0.0",
+      "author": {
+        "name": "wsdone"
+      },
+      "keywords": [
+        "resume",
+        "cv",
+        "pdf",
+        "career",
+        "job-search"
+      ],
+      "category": "productivity"
+    }
+  ]
+}

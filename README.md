@@ -33,12 +33,13 @@ A professional resume assistant that collects your information through friendly,
 
 ## Installation
 
-### Option 1: One-click install (Recommended)
+### Option 1: Plugin install (Recommended)
 
-Run this command in Claude Code:
+Run these commands in Claude Code:
 
 ```
-/install https://github.com/wsdone/resume-guide
+/plugin marketplace add wsdone/resume-guide
+/plugin install resume-guide@resume-guide
 ```
 
 ### Option 2: Install script

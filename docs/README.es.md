@@ -33,12 +33,13 @@ Un asistente profesional de curriculum que recopila tu información a través de
 
 ## Instalación
 
-### Opción 1: Instalación con un clic (Recomendado)
+### Opción 1: Instalación como plugin (Recomendado)
 
-Ejecuta este comando en Claude Code:
+Ejecuta estos comandos en Claude Code:
 
 ```
-/install https://github.com/wsdone/resume-guide
+/plugin marketplace add wsdone/resume-guide
+/plugin install resume-guide@resume-guide
 ```
 
 ### Opción 2: Script de instalación

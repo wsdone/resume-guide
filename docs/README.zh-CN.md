@@ -33,12 +33,13 @@
 
 ## 安装
 
-### 方式一：一键安装（推荐）
+### 方式一：插件安装（推荐）
 
 在 Claude Code 中运行：
 
 ```
-/install https://github.com/wsdone/resume-guide
+/plugin marketplace add wsdone/resume-guide
+/plugin install resume-guide@resume-guide
 ```
 
 ### 方式二：安装脚本
