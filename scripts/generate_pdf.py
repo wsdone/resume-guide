@@ -129,10 +129,10 @@ def generate_pdf(data_path: str, template_name: str, output_path: str):
     HTML(string=html_content, base_url=str(templates_dir)).write_pdf(output_path)
     pages, fill = check_last_page_fill(output_path)
     if pages <= 1 or fill >= MIN_LAST_PAGE_FILL:
-        print(f"PDF generated: {output_path} ({pages}页, 末页填充{fill:.0%})")
+        print(f"PDF generated: {output_path} ({pages} page(s), last page fill: {fill:.0%})")
         return
 
-    print(f"末页填充仅{fill:.0%}，尝试压缩排版...")
+    print(f"Last page fill is only {fill:.0%}, attempting compact layout...")
     best_path = output_path
     best_pages = pages
     best_fill = fill
@@ -149,19 +149,19 @@ def generate_pdf(data_path: str, template_name: str, output_path: str):
             best_pages, best_fill = p, f
             import shutil
             shutil.move(tmp_path, output_path)
-            print(f"  压缩级别{level}: {p}页, 末页填充{f:.0%} ✓")
+            print(f"  Compact level {level}: {p} page(s), fill {f:.0%} - improved")
             if p <= 1 or f >= MIN_LAST_PAGE_FILL:
                 break
         else:
             Path(tmp_path).unlink(missing_ok=True)
-            print(f"  压缩级别{level}: {p}页, 末页填充{f:.0%} (未改善)")
+            print(f"  Compact level {level}: {p} page(s), fill {f:.0%} (no improvement)")
             break  # further compression won't help
 
     # Clean up any remaining temp files
     for level in range(1, len(COMPACT_CSS_LEVELS) + 1):
         Path(output_path.replace(".pdf", f"_compact{level}.pdf")).unlink(missing_ok=True)
 
-    print(f"PDF generated: {output_path} ({best_pages}页, 末页填充{best_fill:.0%})")
+    print(f"PDF generated: {output_path} ({best_pages} page(s), last page fill: {best_fill:.0%})")
 
 
 def main():
